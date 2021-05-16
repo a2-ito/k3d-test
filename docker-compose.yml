@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  dind:
+    image: docker:dind
+    #command:
+      #- sh 
+        #- -c
+          #- |
+        #apk add curl
+        #curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | sh 
+    #environment:
+    entrypoint:
+      - sh
+      - -c 
+      - |
+        dockerd-entrypoint.sh &
+        ./bootstrap.sh
+        sh
+    volumes:
+      - ./bootstrap:/bootstrap
+    working_dir: /bootstrap
+    tty: true
+    privileged: true
